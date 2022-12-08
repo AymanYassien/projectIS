@@ -10,4 +10,3 @@
 
 - First day: Rigister and Login Pages 
 - Memebers: Ayman & Mohamed & Fawzi
-- The GUI of Sign Up page has already finished
