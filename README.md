@@ -8,3 +8,5 @@
   - Tkinter
   - MySQL
 
+First day: Rigister and Login Pages 
+Memebers: Ayman & Mohamed
