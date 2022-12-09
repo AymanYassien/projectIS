@@ -10,7 +10,7 @@
 <h2>First day:</h2>
 - Rigister and Login Pages. 
 - Memebers: Ayman & Mohamed.
-<h3>Summary 1st:<>/h3
+<h3>Summary 1st:</h3>
 - The GUI of Sign Up page has already finished.
 - The GUI of Login page has already finished.
 
