@@ -17,4 +17,13 @@
 - Second day:
   - Linking the sign up page with login page, and link them with Database.
   - Prepare the pages of the app (Doctor, Nurse, Patient).
-  - Members: Mohamed & Ayman & Fawzy.
+  - Members: Mohamed & Ayman.
+- Summary 2nd:
+  - Sign up page is Linked with database.
+  - Login Page ???
+ 
+- Third day:
+  - Creating Doctor, Nurse, Patient pages.
+  - Link them with signup and login pages.
+  - members: Mohamed & Ayman & Fawzy.
+    
