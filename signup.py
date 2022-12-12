@@ -49,13 +49,14 @@ def connect_database():
             return
 
         # Check if the user is already exist or not.
-        query = 'SELECT * FROM data WHERE username=%s'
-        my_cursor.execute(query, (user_entry.get()))
+        query = 'SELECT * FROM data WHERE user_name=%s'
+        my_cursor.execute(query, (user_entry.get(), ))
         # Now My cursor points at one row, so I will fetch it
         row = my_cursor.fetchone()
         # Checking
         if row != None:
             messagebox.showerror('ERROR :(', 'Username Already Exists, Try another username.')
+            user_entry.delete(0, END)
         else:
             query = 'INSERT INTO data(user_name, email, password) VALUES(%s, %s, %s)'
             my_cursor.execute(query, (user_entry.get(), email_entry.get(), pwd_entry.get()))
