@@ -34,4 +34,9 @@
   - Create the GUI of Doctor, Patient, and Nurse pages.
   - Link them together and also with signup and login pages.
   - Members: Mohamed & Ayman & Fawzy.
-    
+- Summary 4th:
+  - Creating the GUI of Doctor, Patient, and Nurse (First)pages is completed.
+  
+- Fifth day: 13-12
+  - Completing the GUI of other pages that linked with three main pages(Doctor, Nurse, Patient).
+  - Members: Mohamed & Ayman & Fawzy.
