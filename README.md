@@ -35,8 +35,15 @@
   - Link them together and also with signup and login pages.
   - Members: Mohamed & Ayman & Fawzy.
 - Summary 4th:
-  - Creating the GUI of Doctor, Patient, and Nurse (First)pages is completed.
+  - Creating the GUI of Doctor, Patient, and Nurse (First) pages is completed.
   
 - Fifth day: 13-12
   - Completing the GUI of other pages that linked with three main pages(Doctor, Nurse, Patient).
   - Members: Mohamed & Ayman & Fawzy.
+- Summary 5th:
+  - We finished 50% of those pages.
+
+- Sixth day: 14-12
+  - Working on GUI of pages is still on work.
+  - Members: Mohamed & Ayman & Fawzy.
+  
