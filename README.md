@@ -46,4 +46,11 @@
 - Sixth day: 14-12
   - Working on GUI of pages is still on work.
   - Members: Mohamed & Ayman & Fawzy.
+- Summary 6th:
+  - We did some changes on pages and the GUI is completed.
+
+- Seventh day: 15-12
+  - Working on Database.
+  - Members: Mohamed & Ayman & Fawzy.
+
   
