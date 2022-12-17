@@ -52,5 +52,16 @@
 - Seventh day: 15-12
   - Working on Database.
   - Members: Mohamed & Ayman & Fawzy.
+- Summary 7th:
+  - We created a blueprint for database of the whole program.
+  - We began creating the database.
 
-  
+- Eighth day: 16-12
+  - Working on Database and fix the GUI of pages.
+  - Members: Mohamed & Ayman & Fawzy.
+- Summary 8th:
+  - We still create the database and treeview.
+
+- Ninth day: 16-12
+  - Working on Database and fix the GUI of pages.
+  - Members: Mohamed & Ayman & Fawzy.
