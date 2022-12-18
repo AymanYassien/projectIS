@@ -62,6 +62,13 @@
 - Summary 8th:
   - We still create the database and treeview.
 
-- Ninth day: 16-12
+- Ninth day: 17-12
   - Working on Database and fix the GUI of pages.
+  - Members: Mohamed & Ayman & Fawzy.
+- Summary 9th:
+  - We still work on database and link the pages together.
+  
+- Tenth day: 18-12
+  - We will add some changes and new ideas.
+  - Still working on database.
   - Members: Mohamed & Ayman & Fawzy.
