@@ -1,5 +1,4 @@
 # Clinical Management System
-## Functional & Non-Functional Requirements
 
 **Supervisors:**
   - Dr.Amr Abohany
