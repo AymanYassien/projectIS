@@ -22,7 +22,7 @@ def connect_database():
                 user='root',
                 password='Q,u5.S@2',
                 port='3306',
-                database='user_data'
+                database='doctor_table'
             )
             mycursor = con.cursor()
         except:
@@ -36,12 +36,18 @@ def connect_database():
             messagebox.showerror('ERROR :(', 'Invalid username or password')
             user_entry.delete(0, END)
             pwd_entry.delete(0, END)
-        elif user_entry.get() == 'doctor1' and pwd_entry.get() == '000':
+        elif user_entry.get() == 'doctor' and pwd_entry.get() == '000':
             messagebox.showinfo('WELCOME :)', 'Successful Login')
             con.close()
             clear()
             root.destroy()
             import doctor
+        elif user_entry.get() == 'nurse' and pwd_entry.get() == '001':
+            messagebox.showinfo('WELCOME :)', 'Successful Login')
+            con.close()
+            clear()
+            root.destroy()
+            import nurse
         else:
             messagebox.showinfo('WELCOME :)', 'Successful Login')
             con.close()
@@ -55,6 +61,11 @@ def signup_page():
     import signup
 
 
+def reset_page():
+    root.destroy()
+    import reset_pass
+
+
 # GUI design.
 root = Tk()
 root.title("LOGIN")
@@ -66,31 +77,43 @@ bgla = Label(root, image=bgIm)
 bgla.pack()  # ?
 
 # username label and entry box
-user_label =Label(text="User Name", font=("courier", 12, "bold"), bg="white", fg="brown")
-user_label.place(x=430, y=169)
-user_entry =Entry(width=40, bg="#fdd1a7", fg="blue")
-user_entry.place(x=430, y=195)
+user_label = Label(text="User Name", font=("courier", 12, "bold"), bg="white", fg="#ba5135")
+user_label.place(x=430, y=180)
+user_entry = Entry(root, relief="flat", width=40, bg="#fdd1a7", fg="purple", highlightthickness=1,
+                   highlightbackground="brown", highlightcolor="red")
+user_entry.place(x=430, y=210)
 
 # password label and entry box
-pwd_label = Label(text="Password", font=("courier", 12, "bold"), bg="white", fg="brown")
-pwd_label.place(x=430, y=240)
-pwd_entry = Entry(width=40, bg="#fdd1a7", fg="blue")
+pwd_label = Label(text="Password", font=("courier", 12, "bold"), bg="white", fg="#ba5135")
+pwd_label.place(x=430, y=270)
+pwd_entry = Entry(root, relief="flat", width=40, bg="#fdd1a7", fg="purple", highlightthickness=1,
+                  highlightbackground="brown", highlightcolor="red")
 pwd_entry.config(show="*")
-pwd_entry.place(x=430, y=266)
+pwd_entry.place(x=430, y=300)
 
 
 # Login button
-login_btn = Button(text="Login", width=11, font=("Arial", 12, "bold"),
-                  borderwidth=3, background="#ac6e52", fg="white", cursor="hand2", command=connect_database)
-login_btn.place(x=483, y=310)
+login_btn = Button(text="Login", width=14, font=("Arial", 11, "bold"),
+                   borderwidth=1, background="#ac6e52", fg="white", cursor="hand2", command=connect_database)
+login_btn.place(x=483, y=380)
 
 # Check if you forget password
 already_label = Label(text="Create a new account?", font=("Arial", 10), bg="white", fg="orange")
-already_label.place(x=430, y=370)
+already_label.place(x=430, y=470)
 
 # Going to Login Page
 sign_btn = Button(text="SignUp", width=13, font=("Arial", 9, "bold underline"), bg="white",
                       fg="blue", cursor="hand2", bd=0, command=signup_page)
-sign_btn.place(x=565, y=370)
+sign_btn.place(x=565, y=470)
+
+
+# Check if you forget password
+already_label = Label(text="Forget Password?", font=("Arial", 10), bg="white", fg="orange")
+already_label.place(x=430, y=520)
+
+# Going to Login Page
+sign_btn = Button(text="Reset Password", width=13, font=("Arial", 9, "bold underline"), bg="white",
+                      fg="blue", cursor="hand2", bd=0, command=reset_page)
+sign_btn.place(x=565, y=520)
 
 root.mainloop()

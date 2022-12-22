@@ -1,127 +1,206 @@
 from tkinter import *
-import tkinter as tk
-from tkinter import ttk
+import mysql.connector
+import pymysql
+from tkinter import messagebox
 from tkinter.ttk import Combobox
-# import pyttsx3
-from tkcalendar import Calendar,DateEntry
+from tkcalendar import Calendar, DateEntry
 from PIL import ImageTk
 
-# init ****************************************
+
+def imp_log():
+    window.destroy()
+    import login
+
+
+def imp_profile():
+    window.destroy()
+    import dr_profile
+
+
+def link():
+    try:
+        mydb = mysql.connector.Connect(
+            host='localhost',
+            user='root',
+            password='Q,u5.S@2',
+            port='3306',
+            database='doctor_table'
+        )
+    except:
+        messagebox.showerror("Error", "Database Connectivity Issue,Please Try Again")
+        return
+
+    my_cursor = mydb.cursor()
+    q = 'UPDATE patient_profile SET selected=%s WHERE password=%s'
+    my_cursor.execute(q, (1, pwd.get()))
+    mydb.commit()
+    mydb.close()
+
+
+def imp_mypro():
+    try:
+        mydb = mysql.connector.Connect(
+            host='localhost',
+            user='root',
+            password='Q,u5.S@2',
+            port='3306',
+            database='doctor_table'
+        )
+    except:
+        messagebox.showerror("Error", "Database Connectivity Issue,Please Try Again")
+        return
+
+    my_cursor = mydb.cursor()
+    q = 'SELECT * FROM data WHERE password=%s'
+    my_cursor.execute(q, (pwd.get(), ))
+    row = my_cursor.fetchone()
+    if row == None or row[1] == 'doctor' or row[1] == 'nurse':
+        messagebox.showerror('ERROR :(', 'Wrong Password ;)')
+    elif row[4] == '':
+        messagebox.showerror('Warning :|', 'You are new here :) Please, Enter your data first.')
+    else:
+        mydb.commit()
+        mydb.close()
+        # function
+        link()
+        window.destroy()
+        import pat_profile
+
+
+def connect():
+    try:
+        mydb2 = mysql.connector.Connect(
+            host='localhost',
+            user='root',
+            password='Q,u5.S@2',
+            port='3306',
+            database='doctor_table'
+        )
+    except:
+        messagebox.showerror("Error", "Database Connectivity Issue,Please Try Again")
+        return
+
+    my_cursor2 = mydb2.cursor()
+    q = 'UPDATE data SET have_profile=%s WHERE password=%s'
+    my_cursor2.execute(q, ('y', pwd.get()))
+    mydb2.commit()
+    mydb2.close()
+
+
+# connect to data base
+def connect_database():
+    if name.get() == '' or phone.get() == '' or adress.get() == '' or gender_combobox.get() == '' or birth.get() == '' or state.get() == '':
+        messagebox.showerror('ERROR :(', 'All Fields are Required.')
+    else:
+        try:
+            mydb = mysql.connector.Connect(
+                host='localhost',
+                user='root',
+                password='Q,u5.S@2',
+                port='3306',
+                database='doctor_table'
+            )
+            my_cursor = mydb.cursor()
+        except:
+            messagebox.showerror("Error", "Database Connectivity Issue,Please Try Again")
+            return
+
+        query = 'insert into patient_profile(name, phone, gender, birth_date, address, state, selected, password)values(%s,%s,%s,%s,%s,%s, %s, %s)'
+        my_cursor.execute(query, (name.get(), phone.get(), gender_combobox.get(), birth.get(), adress.get(), state.get(), 0, pwd.get()))
+        mydb.commit()
+        mydb.close()
+        messagebox.showinfo('Success :)', 'The Process is Completely Successfully, Go TO Your Profile')
+        # Function
+        connect()
+
+
+def clear():
+    name.delete(0, END)
+    phone.delete(0, END)
+    adress.delete(0, END)
+    gender_combobox.delete(0, END)
+    birth.delete(0, END)
+
+
+# init ************GUI****************************
 window = Tk()
-window.title("Patient")
+window.title("PATIENT")
 window.resizable(False, False)
 
-# photo *********************************************
-img = ImageTk.PhotoImage(file="ma.png")
+# photo
+img = ImageTk.PhotoImage(file="patient.png")
 label = Label(window, image=img)
 label.pack()
 
+# name
+name = Entry(window, relief="flat", width=40, bg="#D3F371", fg="purple", highlightthickness=1,
+             highlightbackground="gray", highlightcolor="brown")
+name.place(x=130, y=160, height=22.5)
 
+l2 = Label(text="Patient Name", bg="white", fg='#FC6130', font=("gray", 12))
+l2.place(x=130, y=130)
 
-# name*********************************
-def click(event):
-    pt1.config(state=NORMAL)
-    pt1.delete(0, END)
+# phone
+phone = Entry(window, relief="flat", width=40, bg="#D3F371", fg="purple", highlightthickness=1,
+              highlightbackground="gray", highlightcolor="brown")
+phone.place(x=130, y=240, height=22.5)
 
+l2 = Label(text="Patient Phone", bg="white", fg='#FC6130', font=("gray", 12))
+l2.place(x=130, y=210)
 
-pt1 = Entry(window, bg="#c78767", fg="black", relief="flat", font=("family", 10), highlightthickness=1,
-            highlightbackground="#f5b03b", highlightcolor="#c78767"
-            , selectbackground="#fdd1a7", selectforeground="#f5b03b")
-pt1.insert(0, "Enter Your Name")
-pt1.config(state=DISABLED)
-pt1.bind("<Button>", click)
-pt1.place(x=120, y=110, width=200, height=25)
+# gender
+gender_combobox = Combobox(window, values=['Male', 'Female'], width=32, font="brown 10", state='r')
+gender_combobox.place(x=130, y=480, height=22.5)
+l2 = Label(text="Patient Gender", bg="white", fg='#FC6130', font=("gray", 12))
+l2.place(x=130, y=450)
 
-l2 = Label(text=" Patient Name", highlightcolor="#f5b03b",bg="white",foreground="black",highlightbackground="#fdd1a7",font=("gray",10))
-l2.place(x=100 ,y=90,width= 120 ,height=20)
+# adress
+adress = Entry(window, relief="flat", width=40, bg="#D3F371", fg="purple", highlightthickness=1,
+               highlightbackground="gray", highlightcolor="brown")
+adress.place(x=130, y=320, height=22.5)
+l2 = Label(text="Patient Address", bg="white", fg='#FC6130', font=("gray", 12))
+l2.place(x=130, y=290)
 
-
-
-
-# phone ***********************************
-def click(event):
-    pt2.config(state=NORMAL)
-    pt2.delete(0, END)
-
-
-pt2 = Entry(window, bg="#c78767", fg="black", relief="flat", font=("family", 10), highlightthickness=1,
-            highlightbackground="#f5b03b", highlightcolor="#c78767"
-            , selectbackground="#fdd1a7", selectforeground="#f5b03b")
-pt2.insert(0, "Enter Your Phone")
-pt2.config(state=DISABLED)
-pt2.bind("<Button>", click)
-pt2.place(x=120, y=200, width=200, height=25)
-
-
-l2 = Label(text=" Patient Phone", highlightcolor="#f5b03b",bg="white",foreground="black",highlightbackground="black",font=("black",10))
-l2.place(x=100 ,y=180,width= 120 ,height=20)
-
-
-
-
-# gander ***********************************************
-gender_combobox = Combobox(window, values=['Male', 'Female'], font="brown 10", state='r',
-background="green",foreground="black")
-gender_combobox.place(x=120, y=405, width=200, height=25)
-
-
-l2 = Label(text=" Patient Gander", highlightcolor="#f5b03b",bg="white",foreground="black",highlightbackground="black",font=("black",10))
-l2.place(x=100 ,y=385,width= 120 ,height=20)
-
-
-
-
-# adress ***********************************************
-def click(event):
-    pt4.config(state=NORMAL)
-    pt4.delete(0, END)
-
-pt4 = Entry(window, bg="#c78767", fg="black", relief="flat", font=("family", 10), highlightthickness=1,
-            highlightbackground="#f5b03b", highlightcolor="#c78767"
-            , selectbackground="#fdd1a7", selectforeground="#f5b03b")
-pt4.insert(0, "Enter Your Adress")
-pt4.config(state=DISABLED)
-pt4.bind("<Button>", click)
-pt4.place(x=120, y=290, width=200, height=50)
-
-
-l2 = Label(text=" Patient Adress", highlightcolor="#f5b03b",bg="white",foreground="black",highlightbackground="black",font=("black",10))
-l2.place(x=100 ,y=270,width= 120 ,height=20)
-
+# State
+state = Entry(window, relief="flat", width=40, bg="#D3F371", fg="purple", highlightthickness=1,
+              highlightbackground="gray", highlightcolor="brown")
+state.place(x=130, y=400, height=22.5)
+l2 = Label(text="State", bg="white", fg='#FC6130', font=("gray", 12))
+l2.place(x=130, y=370)
 
 # DATE
+l2 = Label(text="Date of Birth", bg="white", fg='#FC6130', font=("gray", 12))
+l2.place(x=450, y=130)
+birth = DateEntry(window, selectmode='day', width=32, highlightcolor="#f5b03b",bg="white",
+                  foreground="black",highlightbackground="black",font=("black",10),height=15)
+birth.place(x=450, y=160, width=200, height=22.5)
 
-l2 = Label(text="Date of Birth", highlightcolor="#f5b03b",bg="white",foreground="black",highlightbackground="black",font=("black",10) )
-l2.place(x=100 ,y=480,width= 120 ,height=20)
+# Show patient profile
+pwd = Entry(window, relief="flat", width=24, bg="#D3F371", fg="purple", highlightthickness=1,
+            highlightbackground="gray", highlightcolor="brown", show='*')
+pwd.place(x=900, y=530, height=22.5)
+l2 = Label(text="Enter your password", bg="white", fg='#FC6130', font=("gray", 12))
+l2.place(x=900, y=500)
+f1 = Button(window,text="Show My Profile",highlightcolor="#f5b03b",bg="#FC6130",foreground="white",
+            highlightbackground="black", cursor='hand2', font=("black",12),height=8, command=imp_mypro)
+f1.place(x=900,y =600,width=150,height=25)
 
+# save
+f1=Button(window,text="Save", highlightcolor="#f5b03b", bg="blue", foreground="white",
+          highlightbackground="black", font=("black", 12), cursor='hand2', height=8, command=connect_database)
+f1.place(x=130,y =570,width=150,height=25)
 
-cal = DateEntry(window,selectmode='day', highlightcolor="#f5b03b",bg="white",foreground="black",highlightbackground="black",font=("black",10),height=15)
-cal.place(x=120,y=500,width= 200,height=25)
+# clear
+f1=Button(window,text="Clear",highlightcolor="#f5b03b",bg="gray",foreground="white",
+          highlightbackground="black",font=("black",12), cursor='hand2', height=8,command=clear)
+f1.place(x=130,y =630,width=150,height=25)
 
-gender_combobox = Combobox(window, values=['Doc.1', 'Doc','Doc3'], font="brown 10", state='r',
-background="green",foreground="black")
-gender_combobox.place(x=120, y=590, width=200, height=25)
+pro_btn = Button(text="Dr Profile", width=9, font=("Arial", 9, 'bold'), background="#fdd1a7",
+                 activebackground='#fdd1a7', fg="white", cursor="hand2", bd=0, command=imp_profile)
+pro_btn.place(x=3, y=208)
 
-
-l2 = Label(text="Choose doc", highlightcolor="#f5b03b",bg="white",foreground="black",highlightbackground="black",font=("black",10))
-l2.place(x=100 ,y=570,width= 120 ,height=20)
-
-
-#* edit ***************
-f1=Button(window,text="Edit",highlightcolor="#f5b03b",bg="yellow",foreground="black",highlightbackground="black",font=("black",12),height=8)
-f1.place(x=430,y =210,width=150,height=25)
-#* save ***************
-f1=Button(window,text="Save",highlightcolor="#f5b03b",bg="brown",foreground="yellow",highlightbackground="black",font=("black",12),height=8)
-f1.place(x=430,y =250,width=150,height=25)
-
-#* save ***************
-f1=Button(window,text="Clear",highlightcolor="#f5b03b",bg="gray",foreground="black",highlightbackground="black",font=("black",12),height=8)
-f1.place(x=430,y =290,width=150,height=25)
-
-
-#**show
-f1=Button(window,text="Show Doctor Profile",highlightcolor="#f5b03b",bg="gray",foreground="black",highlightbackground="black",font=("black",12),height=8,width=15)
-f1.place(x=430,y =330,width=150,height=25)
-
+lout_btn = Button(text="Log out", width=9, font=("Arial", 9, 'bold'),
+                  background="#fdd1a7", activebackground='#fdd1a7', fg="white", cursor="hand2", bd=0, command=imp_log)
+lout_btn.place(x=3, y=635)
 
 window.mainloop()
